@@ -3,7 +3,7 @@ import torch
 from tqdm import tqdm
 
 
-class SST2Labeler:
+class DataLabeler:
     BASE_PROMPT = (
         """
         Provide your sentiment analysis and the final sentiment label (0 or 1, 0 for negative and 1 for positive) in the
