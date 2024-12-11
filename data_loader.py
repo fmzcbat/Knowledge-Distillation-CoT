@@ -111,29 +111,3 @@ class DataLoader:
             train_data, val_data = self.read_shard(shard_number)
             if train_data is not None and val_data is not None:
                 yield shard_number, train_data, val_data
-
-    def get_shard_stats(self, shard_number):
-        """
-        Get statistics for a specific shard
-
-        Args:
-            shard_number (int): Shard number to analyze
-
-        Returns:
-            dict: Statistics about the shard
-        """
-        file_path = os.path.join(self.data_dir, f"train-{shard_number}.csv")
-
-        try:
-            df = pd.read_csv(file_path)
-            stats = {
-                'total_samples': len(df),
-                'label_distribution': df['generated_solution'].value_counts().to_dict(),
-                'avg_question_length': df['question'].str.len().mean(),
-                'avg_rationale_length': df['generated_rationale'].str.len().mean(),
-                'num_unique_labels': df['generated_solution'].nunique()
-            }
-            return stats
-        except FileNotFoundError:
-            print(f"Error: File not found - {file_path}")
-            return None
